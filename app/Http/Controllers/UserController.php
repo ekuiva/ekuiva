@@ -27,7 +27,7 @@ class UserController extends Controller
         activity()
         ->log('Akses Menu User');
 
-        return view('users.index', compact('users'));
+        return view('e-back-end.users.index', compact('users'));
     }
 
     /**
@@ -38,7 +38,7 @@ class UserController extends Controller
     public function create()
     {
         $role = Role::orderBy('name', 'ASC')->get();
-        return view('users.create', compact('role'));
+        return view('e-back-end.users.create', compact('role'));
     }
 
     /**
@@ -72,7 +72,7 @@ class UserController extends Controller
         activity()
         ->log('Tambah User Baru '.$request->name);
 
-        return redirect(route('users.index'))->with(['success' => 'User: <strong>' . $user->name . '</strong> Berhasil ditambahkan']);
+        return redirect(route('e-back-end.users.index'))->with(['success' => 'User: <strong>' . $user->name . '</strong> Berhasil ditambahkan']);
     }
 
     /**
@@ -98,7 +98,7 @@ class UserController extends Controller
             $user = User::findOrFail(Crypt::decryptString($user));
             $roles = Role::orderBy('name', 'ASC')->get();
             
-            return view('users.edit', compact('user', 'roles'));
+            return view('e-back-end.users.edit', compact('user', 'roles'));
 
         } catch (DecryptException $e) {
             abort(404, 'Data Not Found');
@@ -135,7 +135,7 @@ class UserController extends Controller
             ->log('Update User '.$request->name);
             
             if(Auth::user()->hasRole('Admin')){
-                return redirect(route('users.index'))->with(['success' => 'User: <strong>' . $user->name . '</strong> Berhasil Diperbaharui']);
+                return redirect(route('e-back-end.users.index'))->with(['success' => 'User: <strong>' . $user->name . '</strong> Berhasil Diperbaharui']);
             }else{
                 return redirect()->back()->with(['success' => 'User: <strong>' . $user->name . '</strong> Berhasil Diperbaharui']);
             }
@@ -180,7 +180,7 @@ class UserController extends Controller
             $user = User::findOrFail(Crypt::decryptString($user));
             $roles = Role::all()->pluck('name');
 
-            return view('users.roles', compact('user', 'roles'));
+            return view('e-back-end.users.roles', compact('user', 'roles'));
 
         } catch (DecryptException $e) {
             abort(404, 'Data Not Found');
@@ -289,7 +289,7 @@ class UserController extends Controller
             //Mengambil data permission
             $permissions = Permission::all()->pluck('name');
         }
-        return view('users.role_permission', compact('roles', 'permissions', 'hasPermission'));
+        return view('e-back-end.users.role_permission', compact('roles', 'permissions', 'hasPermission'));
     }
 
     /**

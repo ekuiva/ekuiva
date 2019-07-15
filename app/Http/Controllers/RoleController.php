@@ -21,7 +21,7 @@ class RoleController extends Controller
         activity()
         ->log('Akses Menu Role');
 
-        return view('role.index', compact('role'));
+        return view('e-back-end.role.index', compact('role'));
     }
 
     /**

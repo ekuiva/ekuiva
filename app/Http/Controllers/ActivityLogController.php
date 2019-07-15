@@ -17,6 +17,6 @@ class ActivityLogController extends Controller
     {   
         $logs = ActivityLog::with('User')->orderBy('created_at', 'DESC')->get();
        
-        return view('activity-log.index', compact('logs'));
+        return view('e-back-end.activity-log.index', compact('logs'));
     }
 }
